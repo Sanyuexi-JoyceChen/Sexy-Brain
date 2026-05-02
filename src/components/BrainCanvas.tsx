@@ -17,6 +17,28 @@ interface BrainModelProps {
   activeRegion: string | null;
   opacity: number;
   activePlanes: THREE.Plane[];
+  meshDefaultColor: string;
+}
+
+// Read CSS variable off :root and re-read whenever data-theme flips.
+function useThemeThreeColors() {
+  const read = () => {
+    if (typeof window === 'undefined') {
+      return { shadow: '#000000', mesh: '#737373' };
+    }
+    const style = getComputedStyle(document.documentElement);
+    return {
+      shadow: style.getPropertyValue('--three-contact-shadow').trim() || '#000000',
+      mesh: style.getPropertyValue('--three-mesh-default').trim() || '#737373',
+    };
+  };
+  const [colors, setColors] = useState(read);
+  useEffect(() => {
+    const observer = new MutationObserver(() => setColors(read()));
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+  return colors;
 }
 
 // Global clipping planes
@@ -38,14 +60,14 @@ function CameraController({ zoom }: { zoom: number }) {
 // --------------------------------------------------------
 // 真实 3D 模型加载组件 (Real 3D Model Component)
 // --------------------------------------------------------
-function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes }: BrainModelProps) {
+function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes, meshDefaultColor }: BrainModelProps) {
   // 尝试加载 public/brain.glb，如果您上传了该文件，这里就会被激活
   const { scene } = useGLTF('/brain.glb');
   const [hoveredMesh, setHoveredMesh] = useState<string | null>(null);
 
   useEffect(() => {
     if (!scene) return;
-    
+
     scene.traverse((child: any) => {
       if (child.isMesh) {
         // 备份原有的材质以防覆盖
@@ -53,7 +75,7 @@ function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes }: 
           child.userData.originalMaterial = child.material.clone();
         }
 
-        const isHoveredOrActive = 
+        const isHoveredOrActive =
           hoveredMesh === child.name || activeRegion === child.name;
 
         if (isHoveredOrActive) {
@@ -70,7 +92,7 @@ function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes }: 
         } else {
           // 恢复基础按黑/灰样式
           child.material = new THREE.MeshStandardMaterial({
-            color: '#737373',
+            color: meshDefaultColor,
             roughness: 0.6,
             metalness: 0.2,
             transparent: true,
@@ -81,7 +103,7 @@ function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes }: 
         }
       }
     });
-  }, [scene, hoveredMesh, activeRegion, opacity, activePlanes]);
+  }, [scene, hoveredMesh, activeRegion, opacity, activePlanes, meshDefaultColor]);
 
   // 遍历模型的网格，赋予鼠标交互事件和金色高光材质
   return (
@@ -117,7 +139,7 @@ function RealBrainModel({ onRegionClick, activeRegion, opacity, activePlanes }: 
 // 占位模型组件 (Placeholder Brain Component)
 // 当没有 brain.glb 文件时渲染
 // --------------------------------------------------------
-function PlaceholderBrain({ onRegionClick, activeRegion, opacity, activePlanes }: BrainModelProps) {
+function PlaceholderBrain({ onRegionClick, activeRegion, opacity, activePlanes, meshDefaultColor }: BrainModelProps) {
   const group = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -155,8 +177,8 @@ function PlaceholderBrain({ onRegionClick, activeRegion, opacity, activePlanes }
             }}
           >
             <sphereGeometry args={[1, 32, 32]} />
-            <meshStandardMaterial 
-              color={isActiveOrHovered ? '#C5A059' : '#737373'} 
+            <meshStandardMaterial
+              color={isActiveOrHovered ? '#C5A059' : meshDefaultColor}
               transparent={true}
               opacity={isActiveOrHovered ? 1 : opacity}
               roughness={0.6}
@@ -172,7 +194,7 @@ function PlaceholderBrain({ onRegionClick, activeRegion, opacity, activePlanes }
 }
 
 // 带有错误捕获的包裹组件，用于在 missing brain.glb 时平滑降级
-function BrainModelWrapper({ onRegionClick, activeRegion, opacity, activePlanes }: BrainModelProps) {
+function BrainModelWrapper({ onRegionClick, activeRegion, opacity, activePlanes, meshDefaultColor }: BrainModelProps) {
   const [hasModelError, setHasModelError] = useState(false);
 
   // 一旦加载外部模型出错（比如 404），则退回到 PlaceholderBrain
@@ -188,17 +210,19 @@ function BrainModelWrapper({ onRegionClick, activeRegion, opacity, activePlanes 
   }, []);
 
   if (hasModelError) {
-    return <PlaceholderBrain onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} />;
+    return <PlaceholderBrain onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} meshDefaultColor={meshDefaultColor} />;
   }
 
   return (
-    <Suspense fallback={<PlaceholderBrain onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} />}>
-      <RealBrainModel onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} />
+    <Suspense fallback={<PlaceholderBrain onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} meshDefaultColor={meshDefaultColor} />}>
+      <RealBrainModel onRegionClick={onRegionClick} activeRegion={activeRegion} opacity={opacity} activePlanes={activePlanes} meshDefaultColor={meshDefaultColor} />
     </Suspense>
   );
 }
 
 export default function BrainCanvas({ onRegionClick, activeRegion, opacity, activePlane, clipPosition, zoom }: BrainCanvasProps) {
+  const { shadow: contactShadowColor, mesh: meshDefaultColor } = useThemeThreeColors();
+
   const activePlanes = useMemo(() => {
     if (activePlane === 'Sagittal') return [sagittalPlane];
     if (activePlane === 'Horizontal') return [horizontalPlane];
@@ -221,19 +245,20 @@ export default function BrainCanvas({ onRegionClick, activeRegion, opacity, acti
         <ambientLight intensity={0.2} />
         <directionalLight position={[10, 10, 5]} intensity={0.5} />
         <Environment preset="city" />
-        
+
         {/* 当没有上传模型时默认展示占位模型，如果有 brain.glb 则自动渲染！*/}
-        <BrainModelWrapper 
-          onRegionClick={onRegionClick} 
+        <BrainModelWrapper
+          onRegionClick={onRegionClick}
           activeRegion={activeRegion}
           opacity={opacity}
           activePlanes={activePlanes}
+          meshDefaultColor={meshDefaultColor}
         />
-        
-        <ContactShadows position={[0, -2, 0]} opacity={0.3} scale={10} blur={2} far={4} color="#000000" />
-        <OrbitControls 
-          enablePan={true} 
-          minDistance={3} 
+
+        <ContactShadows position={[0, -2, 0]} opacity={0.3} scale={10} blur={2} far={4} color={contactShadowColor} />
+        <OrbitControls
+          enablePan={true}
+          minDistance={3}
           maxDistance={10}
           autoRotate={!activeRegion} /* 没有选中脑区时可以缓慢旋转 */
           autoRotateSpeed={0.5}

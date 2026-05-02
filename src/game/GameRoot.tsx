@@ -44,7 +44,7 @@ function Inner() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="fixed bottom-8 right-8 z-30 px-6 py-3 text-xs tracking-[0.3em] text-[#C5A059] border border-[#C5A059]/40 bg-black/40 backdrop-blur-sm hover:bg-[#C5A059]/10 hover:border-[#C5A059]/70 transition-all rounded"
+          className="fixed bottom-8 right-8 z-30 px-6 py-3 text-xs tracking-[0.3em] text-accent-gold border border-[rgb(var(--accent-gold-rgb)/0.4)] bg-[rgb(var(--bg-base-rgb)/0.4)] backdrop-blur-sm hover:bg-[rgb(var(--accent-gold-rgb)/0.1)] hover:border-[rgb(var(--accent-gold-rgb)/0.7)] transition-all rounded"
         >
           ▶ START TRAINING
         </motion.button>

@@ -39,7 +39,7 @@ export default function ShareCard({ onClose }: ShareCardProps) {
   return (
     <motion.div
       className="fixed inset-0 z-[70] flex items-center justify-center p-4 overflow-y-auto"
-      style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)' }}
+      style={{ background: 'rgb(var(--shadow-strong-rgb) / 0.85)', backdropFilter: 'blur(12px)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -52,15 +52,15 @@ export default function ShareCard({ onClose }: ShareCardProps) {
         className="relative max-w-md w-full rounded-2xl overflow-hidden"
         style={{
           background:
-            'linear-gradient(180deg, #161616 0%, #0a0a0a 100%)',
-          border: '1px solid #C5A05950',
-          boxShadow: '0 0 60px rgba(197,160,89,0.25)',
+            'linear-gradient(180deg, var(--bg-overlay) 0%, var(--bg-elevated) 100%)',
+          border: '1px solid rgb(var(--accent-gold-rgb) / 0.3)',
+          boxShadow: '0 0 60px rgb(var(--accent-gold-rgb) / 0.25)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 p-1.5 rounded-full text-white/60 hover:text-white bg-white/5"
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full text-[rgb(var(--text-primary-rgb)/0.6)] hover:text-text-primary bg-[rgb(var(--text-primary-rgb)/0.05)]"
         >
           <X size={16} />
         </button>
@@ -70,19 +70,19 @@ export default function ShareCard({ onClose }: ShareCardProps) {
           className="absolute top-0 left-0 right-0 h-1"
           style={{
             background:
-              'linear-gradient(90deg, transparent, #C5A059, transparent)',
+              'linear-gradient(90deg, transparent, var(--accent-gold), transparent)',
           }}
         />
 
         <div className="p-6 md:p-8">
           <div className="text-center mb-6">
-            <div className="text-xs tracking-[0.4em] text-[#C5A059] mb-2">
+            <div className="text-xs tracking-[0.4em] text-accent-gold mb-2">
               MY PREFRONTAL MAP
             </div>
-            <div className="text-3xl font-light text-white mb-1">
-              {pct}<span className="text-xl text-white/60">%</span>
+            <div className="text-3xl font-light text-text-primary mb-1">
+              {pct}<span className="text-xl text-[rgb(var(--text-primary-rgb)/0.6)]">%</span>
             </div>
-            <div className="text-xs text-white/60">
+            <div className="text-xs text-[rgb(var(--text-primary-rgb)/0.6)]">
               已点亮 {completed}/{total} · 超越 {percentile}% 的大脑
             </div>
           </div>
@@ -94,14 +94,14 @@ export default function ShareCard({ onClose }: ShareCardProps) {
           <div
             className="mt-6 py-3 px-4 rounded-xl text-center"
             style={{
-              background: 'rgba(197,160,89,0.08)',
-              border: '1px solid rgba(197,160,89,0.35)',
+              background: 'rgb(var(--accent-gold-rgb) / 0.08)',
+              border: '1px solid rgb(var(--accent-gold-rgb) / 0.35)',
             }}
           >
-            <div className="text-[10px] tracking-widest text-white/50 mb-1">
+            <div className="text-[10px] tracking-widest text-[rgb(var(--text-primary-rgb)/0.5)] mb-1">
               当前称号
             </div>
-            <div className="text-base text-[#C5A059]">{title}</div>
+            <div className="text-base text-accent-gold">{title}</div>
           </div>
 
           {/* Per-module bars */}
@@ -114,11 +114,11 @@ export default function ShareCard({ onClose }: ShareCardProps) {
                     <span className="flex items-center gap-1.5" style={{ color: m.color }}>
                       <span>{m.icon}</span> {m.name}
                     </span>
-                    <span className="text-white/50 tabular-nums">
+                    <span className="text-[rgb(var(--text-primary-rgb)/0.5)] tabular-nums">
                       {p.completed}/{p.total}
                     </span>
                   </div>
-                  <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+                  <div className="h-1 rounded-full bg-[rgb(var(--text-primary-rgb)/0.05)] overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       initial={{ width: 0 }}
@@ -134,14 +134,14 @@ export default function ShareCard({ onClose }: ShareCardProps) {
 
           {/* Share text */}
           <div className="mt-6">
-            <div className="text-[10px] tracking-widest text-white/50 mb-2">
+            <div className="text-[10px] tracking-widest text-[rgb(var(--text-primary-rgb)/0.5)] mb-2">
               分享文案
             </div>
             <div
-              className="p-3 rounded-lg text-xs text-white/75 leading-relaxed"
+              className="p-3 rounded-lg text-xs text-[rgb(var(--text-primary-rgb)/0.75)] leading-relaxed"
               style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                background: 'rgb(var(--text-primary-rgb) / 0.03)',
+                border: '1px solid rgb(var(--text-primary-rgb) / 0.08)',
               }}
             >
               {shareText}
@@ -151,9 +151,9 @@ export default function ShareCard({ onClose }: ShareCardProps) {
               onClick={handleCopy}
               className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all"
               style={{
-                background: copied ? '#C5A05922' : 'rgba(197,160,89,0.12)',
-                border: '1px solid rgba(197,160,89,0.5)',
-                color: '#C5A059',
+                background: copied ? 'rgb(var(--accent-gold-rgb) / 0.2)' : 'rgb(var(--accent-gold-rgb) / 0.12)',
+                border: '1px solid rgb(var(--accent-gold-rgb) / 0.5)',
+                color: 'var(--accent-gold)',
               }}
             >
               {copied ? (
@@ -208,7 +208,7 @@ function RadarChart({ state }: { state: ReturnType<typeof usePlayer>['state'] })
               return `${cx + Math.cos(a) * R * r},${cy + Math.sin(a) * R * r}`;
             }).join(' ')}
             fill="none"
-            stroke="#ffffff10"
+            stroke="rgb(var(--text-primary-rgb) / 0.08)"
             strokeWidth="0.5"
           />
         ))}
@@ -220,15 +220,15 @@ function RadarChart({ state }: { state: ReturnType<typeof usePlayer>['state'] })
             y1={cy}
             x2={p.x}
             y2={p.y}
-            stroke="#ffffff10"
+            stroke="rgb(var(--text-primary-rgb) / 0.08)"
             strokeWidth="0.5"
           />
         ))}
         {/* fill */}
         <motion.path
           d={dataPath}
-          fill="#C5A05933"
-          stroke="#C5A059"
+          fill="rgb(var(--accent-gold-rgb) / 0.2)"
+          stroke="var(--accent-gold)"
           strokeWidth="1.5"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
