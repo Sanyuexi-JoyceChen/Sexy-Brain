@@ -13,6 +13,8 @@
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![three.js](https://img.shields.io/badge/three.js-r184-000000?logo=threedotjs&logoColor=white)](https://threejs.org)
 
+### 🌐 [Live Demo → sexy-brain.vercel.app](https://sexy-brain.vercel.app)
+
 </div>
 
 一个交互式 3D 大脑图谱 + 前额叶训练小游戏,帮用户练习**注意力控制**、**情绪调节**、**工作记忆**与**抑制控制**。
