@@ -30,8 +30,7 @@ export default class ErrorBoundary extends Component<Props, State> {
               position: 'fixed',
               inset: 0,
               zIndex: 0,
-              background:
-                'radial-gradient(circle at 50% 50%, #151515 0%, #050505 100%)',
+              background: 'var(--gradient-radial-bg)',
             }}
           />
         );
@@ -42,8 +41,8 @@ export default class ErrorBoundary extends Component<Props, State> {
             position: 'fixed',
             inset: 0,
             zIndex: 9999,
-            background: '#000',
-            color: '#fff',
+            background: 'var(--bg-base)',
+            color: 'var(--text-primary)',
             padding: 24,
             fontFamily: 'monospace',
             fontSize: 12,

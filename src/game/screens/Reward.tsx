@@ -41,7 +41,7 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
       style={{
-        background: 'rgba(0,0,0,0.88)',
+        background: 'rgb(var(--shadow-strong-rgb) / 0.88)',
         backdropFilter: 'blur(14px)',
       }}
       initial={{ opacity: 0 }}
@@ -87,19 +87,19 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
         className="relative max-w-md w-full rounded-2xl overflow-hidden text-center"
         style={{
           background: done
-            ? `linear-gradient(180deg, ${color}22 0%, rgba(10,10,10,0.98) 70%)`
-            : `linear-gradient(180deg, rgba(60,60,60,0.3) 0%, rgba(10,10,10,0.98) 70%)`,
-          border: `1px solid ${done ? color + '60' : '#ffffff20'}`,
+            ? `linear-gradient(180deg, ${color}22 0%, rgb(var(--bg-elevated-rgb) / 0.98) 70%)`
+            : `linear-gradient(180deg, rgb(var(--text-primary-rgb) / 0.12) 0%, rgb(var(--bg-elevated-rgb) / 0.98) 70%)`,
+          border: `1px solid ${done ? color + '60' : 'rgb(var(--text-primary-rgb) / 0.12)'}`,
           boxShadow: done
             ? `0 0 80px ${color}40, inset 0 1px 0 ${color}40`
-            : '0 0 40px rgba(255,255,255,0.08)',
+            : '0 0 40px rgb(var(--text-primary-rgb) / 0.08)',
         }}
       >
         {/* top light bar */}
         <div
           className="absolute top-0 left-0 right-0 h-1"
           style={{
-            background: `linear-gradient(90deg, transparent, ${done ? color : '#ffffff60'}, transparent)`,
+            background: `linear-gradient(90deg, transparent, ${done ? color : 'rgb(var(--text-primary-rgb) / 0.4)'}, transparent)`,
           }}
         />
 
@@ -111,11 +111,11 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
             transition={{ delay: 0.15, type: 'spring' }}
             className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 relative"
             style={{
-              background: done ? `${color}30` : 'rgba(255,255,255,0.08)',
-              border: `2px solid ${done ? color : '#ffffff40'}`,
+              background: done ? `${color}30` : 'rgb(var(--text-primary-rgb) / 0.08)',
+              border: `2px solid ${done ? color : 'rgb(var(--text-primary-rgb) / 0.25)'}`,
             }}
           >
-            {done ? <Check size={36} color={color} /> : <X size={36} color="#ffffff80" />}
+            {done ? <Check size={36} color={color} /> : <X size={36} color="rgb(var(--text-primary-rgb) / 0.5)" />}
             {done && (
               <motion.div
                 className="absolute inset-0 rounded-full"
@@ -128,14 +128,14 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
 
           <div
             className="text-[10px] tracking-[0.4em] mb-2"
-            style={{ color: done ? color : '#ffffff70' }}
+            style={{ color: done ? color : 'rgb(var(--text-primary-rgb) / 0.5)' }}
           >
             {done ? (reward.firstTime ? '首次完成' : '再次完成') : '未达成'}
           </div>
-          <h2 className="text-xl md:text-2xl font-light text-white mb-1 leading-snug">
+          <h2 className="text-xl md:text-2xl font-light text-text-primary mb-1 leading-snug">
             {card.title}
           </h2>
-          <div className="text-xs text-white/40 mb-6">
+          <div className="text-xs text-[rgb(var(--text-primary-rgb)/0.4)] mb-6">
             {mod.icon} {mod.name} · {card.starsLabel}
           </div>
 
@@ -146,30 +146,30 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
             transition={{ delay: 0.35, duration: 0.5 }}
             className="mb-6 py-4 rounded-xl"
             style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'rgb(var(--text-primary-rgb) / 0.03)',
+              border: '1px solid rgb(var(--text-primary-rgb) / 0.08)',
             }}
           >
             <div className="flex items-center justify-center gap-6">
               <div>
-                <div className="flex items-center justify-center gap-1.5 text-[10px] tracking-widest text-white/50 mb-1">
+                <div className="flex items-center justify-center gap-1.5 text-[10px] tracking-widest text-[rgb(var(--text-primary-rgb)/0.5)] mb-1">
                   <Sparkles size={10} style={{ color }} /> 经验
                 </div>
                 <div
                   className="text-2xl font-light"
-                  style={{ color: done ? color : '#ffffff60' }}
+                  style={{ color: done ? color : 'rgb(var(--text-primary-rgb) / 0.4)' }}
                 >
                   +{reward.xpGained}
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/10" />
+              <div className="w-px h-8 bg-[rgb(var(--text-primary-rgb)/0.1)]" />
               <div>
-                <div className="text-[10px] tracking-widest text-white/50 mb-1">
+                <div className="text-[10px] tracking-widest text-[rgb(var(--text-primary-rgb)/0.5)] mb-1">
                   🍃 桑叶
                 </div>
                 <div
                   className="text-2xl font-light"
-                  style={{ color: done ? color : '#ffffff60' }}
+                  style={{ color: done ? color : 'rgb(var(--text-primary-rgb) / 0.4)' }}
                 >
                   +{reward.mulberryGained}
                 </div>
@@ -207,9 +207,9 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
               transition={{ delay: 0.8 }}
               className="mb-4 py-2 px-3 rounded-lg text-xs text-center"
               style={{
-                background: 'rgba(197,160,89,0.1)',
-                border: '1px solid rgba(197,160,89,0.5)',
-                color: '#C5A059',
+                background: 'rgb(var(--accent-gold-rgb) / 0.1)',
+                border: '1px solid rgb(var(--accent-gold-rgb) / 0.5)',
+                color: 'var(--accent-gold)',
               }}
             >
               🎖 获得新称号:{reward.newTitle}
@@ -217,16 +217,16 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
           )}
 
           {/* Current totals */}
-          <div className="flex justify-center gap-6 mb-6 text-xs text-white/50">
-            <span>总 XP <span className="text-white font-medium tabular-nums">{xpNow}</span></span>
-            <span>总桑叶 <span className="text-white font-medium tabular-nums">{mulNow}</span></span>
+          <div className="flex justify-center gap-6 mb-6 text-xs text-[rgb(var(--text-primary-rgb)/0.5)]">
+            <span>总 XP <span className="text-text-primary font-medium tabular-nums">{xpNow}</span></span>
+            <span>总桑叶 <span className="text-text-primary font-medium tabular-nums">{mulNow}</span></span>
           </div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-sm text-white/70 leading-relaxed mb-6"
+            className="text-sm text-[rgb(var(--text-primary-rgb)/0.7)] leading-relaxed mb-6"
           >
             {done ? card.successNote : card.failureNote}
           </motion.p>
@@ -236,7 +236,7 @@ export default function Reward({ card, done, reward, onContinue }: RewardProps) 
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
             onClick={onContinue}
-            className="px-8 py-3 text-sm tracking-widest text-white/85 border border-white/20 hover:border-white/50 hover:text-white rounded-lg transition-all"
+            className="px-8 py-3 text-sm tracking-widest text-[rgb(var(--text-primary-rgb)/0.85)] border border-[rgb(var(--border-subtle-rgb)/0.2)] hover:border-[rgb(var(--border-subtle-rgb)/0.4)] hover:text-text-primary rounded-lg transition-all"
           >
             继续
           </motion.button>

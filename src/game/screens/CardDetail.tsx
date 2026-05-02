@@ -16,7 +16,7 @@ export default function CardDetail({ card, onBack, onOutcome }: CardDetailProps)
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 overflow-y-auto"
       style={{
-        background: 'rgba(0,0,0,0.82)',
+        background: 'rgb(var(--shadow-strong-rgb) / 0.82)',
         backdropFilter: 'blur(14px)',
       }}
       initial={{ opacity: 0 }}
@@ -26,7 +26,7 @@ export default function CardDetail({ card, onBack, onOutcome }: CardDetailProps)
     >
       <button
         onClick={onBack}
-        className="absolute top-6 left-6 flex items-center gap-2 text-white/50 hover:text-white/90 text-sm z-10"
+        className="absolute top-6 left-6 flex items-center gap-2 text-[rgb(var(--text-primary-rgb)/0.5)] hover:text-[rgb(var(--text-primary-rgb)/0.9)] text-sm z-10"
       >
         <ArrowLeft size={16} /> 返回地图
       </button>
@@ -40,7 +40,7 @@ export default function CardDetail({ card, onBack, onOutcome }: CardDetailProps)
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="rounded-2xl overflow-hidden relative"
           style={{
-            background: `linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(10,10,10,0.98) 100%)`,
+            background: `linear-gradient(180deg, rgb(var(--bg-overlay-rgb) / 0.95) 0%, rgb(var(--bg-elevated-rgb) / 0.98) 100%)`,
             border: `1px solid ${color}50`,
             boxShadow: `0 0 70px ${color}25, inset 0 1px 0 ${color}40`,
             transformStyle: 'preserve-3d',
@@ -78,32 +78,32 @@ export default function CardDetail({ card, onBack, onOutcome }: CardDetailProps)
               <StarRow stars={card.stars} label={card.starsLabel} color={color} />
             </div>
 
-            <div className="text-[10px] tracking-[0.4em] text-white/40 mb-1">
+            <div className="text-[10px] tracking-[0.4em] text-[rgb(var(--text-primary-rgb)/0.4)] mb-1">
               抽到的任务卡
             </div>
-            <h2 className="text-2xl md:text-3xl font-light text-white leading-snug mb-8">
+            <h2 className="text-2xl md:text-3xl font-light text-text-primary leading-snug mb-8">
               {card.title}
             </h2>
 
             <Section label="触发句" color={color}>
-              <div className="text-lg text-white/90 leading-relaxed font-light italic">
+              <div className="text-lg text-[rgb(var(--text-primary-rgb)/0.9)] leading-relaxed font-light italic">
                 「{card.trigger}」
               </div>
             </Section>
 
             <Section label="怎么做" color={color}>
-              <div className="text-sm text-white/75 leading-relaxed">
+              <div className="text-sm text-[rgb(var(--text-primary-rgb)/0.75)] leading-relaxed">
                 {card.howTo}
               </div>
             </Section>
 
             <Section label="再选择" color={color}>
-              <div className="text-sm text-white/75 leading-relaxed">
+              <div className="text-sm text-[rgb(var(--text-primary-rgb)/0.75)] leading-relaxed">
                 {card.reChoice}
               </div>
             </Section>
 
-            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+            <div className="mt-8 pt-6 border-t border-[rgb(var(--border-subtle-rgb)/0.1)] flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => onOutcome(true)}
                 className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-medium transition-all hover:brightness-110"
@@ -117,7 +117,7 @@ export default function CardDetail({ card, onBack, onOutcome }: CardDetailProps)
               </button>
               <button
                 onClick={() => onOutcome(false)}
-                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
+                className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm text-[rgb(var(--text-primary-rgb)/0.7)] border border-[rgb(var(--border-subtle-rgb)/0.15)] hover:border-[rgb(var(--border-subtle-rgb)/0.3)] hover:text-text-primary transition-all"
               >
                 <X size={16} /> 这次没做到
               </button>
@@ -173,7 +173,7 @@ function StarRow({
           />
         ))}
       </div>
-      <div className="text-[10px] text-white/40 mt-1 tracking-wider">
+      <div className="text-[10px] text-[rgb(var(--text-primary-rgb)/0.4)] mt-1 tracking-wider">
         {label}
       </div>
     </div>

@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import GameRoot from './game/GameRoot.tsx';
 import ErrorBoundary from './game/ErrorBoundary.tsx';
+import ThemeToggle from './components/ThemeToggle.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -13,5 +14,6 @@ createRoot(document.getElementById('root')!).render(
     <ErrorBoundary>
       <GameRoot />
     </ErrorBoundary>
+    <ThemeToggle />
   </StrictMode>,
 );

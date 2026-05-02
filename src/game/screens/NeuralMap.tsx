@@ -57,7 +57,7 @@ export default function NeuralMap({
       className="fixed inset-0 z-40 overflow-y-auto"
       style={{
         background:
-          'radial-gradient(ellipse at center, rgba(10,10,10,0.96) 0%, rgba(5,5,5,0.99) 80%)',
+          'radial-gradient(ellipse at center, rgb(var(--bg-elevated-rgb) / 0.96) 0%, rgb(var(--bg-base-rgb) / 0.99) 80%)',
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -69,7 +69,7 @@ export default function NeuralMap({
       <div className="max-w-6xl mx-auto px-6 pt-28 pb-12">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-white/50 hover:text-white/90 text-sm mb-6"
+          className="flex items-center gap-2 text-[rgb(var(--text-primary-rgb)/0.5)] hover:text-[rgb(var(--text-primary-rgb)/0.9)] text-sm mb-6"
         >
           <ArrowLeft size={16} /> 返回模块
         </button>
@@ -86,11 +86,11 @@ export default function NeuralMap({
             >
               {mod.subtitle.toUpperCase()}
             </div>
-            <h2 className="text-3xl font-light text-white flex items-center gap-3">
+            <h2 className="text-3xl font-light text-text-primary flex items-center gap-3">
               <span className="text-2xl">{mod.icon}</span>
               {mod.name}
             </h2>
-            <p className="text-xs text-white/40 mt-1">
+            <p className="text-xs text-[rgb(var(--text-primary-rgb)/0.4)] mt-1">
               从起点到终点,每一步都是控制力的升级 · 点亮 {prog.completed}/{prog.total}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function NeuralMap({
           className="relative rounded-2xl overflow-hidden"
           style={{
             background:
-              'linear-gradient(180deg, rgba(20,20,20,0.6) 0%, rgba(10,10,10,0.8) 100%)',
+              'linear-gradient(180deg, rgb(var(--bg-overlay-rgb) / 0.6) 0%, rgb(var(--bg-elevated-rgb) / 0.8) 100%)',
             border: `1px solid ${color}25`,
             boxShadow: `inset 0 0 80px ${color}10`,
           }}
@@ -136,7 +136,7 @@ export default function NeuralMap({
               return (
                 <g key={`p-${i}`}>
                   {/* dim base */}
-                  <path d={d} stroke="#ffffff10" strokeWidth="2" fill="none" />
+                  <path d={d} stroke="rgb(var(--path-dim-rgb) / var(--path-dim-alpha))" strokeWidth="2" fill="none" />
                   {/* glow if completed */}
                   {completed && (
                     <path
@@ -209,8 +209,8 @@ export default function NeuralMap({
         </div>
 
         {/* Legend */}
-        <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/60 justify-center">
-          <LegendDot color="#ffffff20" label="未解锁" />
+        <div className="mt-6 flex flex-wrap gap-4 text-xs text-[rgb(var(--text-primary-rgb)/0.6)] justify-center">
+          <LegendDot color="rgb(var(--text-primary-rgb) / 0.15)" label="未解锁" />
           <LegendDot color={color} label="可挑战" pulse />
           <LegendDot
             color={color}
@@ -219,7 +219,7 @@ export default function NeuralMap({
           />
         </div>
 
-        <p className="mt-6 text-center text-xs text-white/40 max-w-md mx-auto leading-relaxed">
+        <p className="mt-6 text-center text-xs text-[rgb(var(--text-primary-rgb)/0.4)] max-w-md mx-auto leading-relaxed">
           相同等级下,每次点击节点会从该等级的卡片池中随机抽取一张 ·
           完成后点亮坐标,解锁下一等级
         </p>
@@ -254,7 +254,7 @@ function NodeCircle({
         cy={pos.y}
         r={r + 4}
         fill="none"
-        stroke={unlocked ? color : '#ffffff15'}
+        stroke={unlocked ? color : 'rgb(var(--text-primary-rgb) / 0.1)'}
         strokeWidth="1"
         opacity="0.4"
       />
@@ -262,8 +262,8 @@ function NodeCircle({
         cx={pos.x}
         cy={pos.y}
         r={r}
-        fill={completed ? color : unlocked ? `${color}25` : '#0a0a0a'}
-        stroke={unlocked ? color : '#ffffff25'}
+        fill={completed ? color : unlocked ? `${color}25` : 'var(--bg-elevated)'}
+        stroke={unlocked ? color : 'rgb(var(--text-primary-rgb) / 0.15)'}
         strokeWidth="2"
       />
       <foreignObject x={pos.x - r} y={pos.y - r} width={r * 2} height={r * 2}>
@@ -276,7 +276,7 @@ function NodeCircle({
             justifyContent: 'center',
             flexDirection: 'column',
             pointerEvents: 'none',
-            color: completed ? '#050505' : unlocked ? color : '#ffffff40',
+            color: completed ? 'var(--bg-base)' : unlocked ? color : 'rgb(var(--text-primary-rgb) / 0.25)',
             fontFamily: 'inherit',
           }}
         >

@@ -17,7 +17,7 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
       className="fixed inset-0 z-40 overflow-y-auto"
       style={{
         background:
-          'radial-gradient(ellipse at center, rgba(10,10,10,0.9) 0%, rgba(5,5,5,0.98) 80%)',
+          'radial-gradient(ellipse at center, rgb(var(--bg-elevated-rgb) / 0.9) 0%, rgb(var(--bg-base-rgb) / 0.98) 80%)',
         backdropFilter: 'blur(10px)',
       }}
       initial={{ opacity: 0 }}
@@ -29,7 +29,7 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
       <div className="max-w-6xl mx-auto px-6 pt-28 pb-10 min-h-full flex flex-col">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-white/50 hover:text-white/90 transition-colors text-sm mb-8 w-fit"
+          className="flex items-center gap-2 text-[rgb(var(--text-primary-rgb)/0.5)] hover:text-[rgb(var(--text-primary-rgb)/0.9)] transition-colors text-sm mb-8 w-fit"
         >
           <ArrowLeft size={16} /> 返回
         </button>
@@ -39,9 +39,9 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="text-xs tracking-[0.4em] text-[#C5A059]/70 mb-2">SELECT A MODULE</div>
-          <h2 className="text-3xl font-light text-white mb-2">选择你要训练的能力</h2>
-          <p className="text-sm text-white/40 mb-10">每一个模块都是前额叶的一条核心线路。</p>
+          <div className="text-xs tracking-[0.4em] text-[rgb(var(--accent-gold-rgb)/0.7)] mb-2">SELECT A MODULE</div>
+          <h2 className="text-3xl font-light text-text-primary mb-2">选择你要训练的能力</h2>
+          <p className="text-sm text-[rgb(var(--text-primary-rgb)/0.4)] mb-10">每一个模块都是前额叶的一条核心线路。</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 flex-1">
@@ -56,7 +56,7 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
                 transition={{ delay: 0.15 + i * 0.08 }}
                 whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative text-left p-6 rounded-lg bg-white/[0.03] border border-white/10 hover:border-white/30 overflow-hidden transition-colors"
+                className="group relative text-left p-6 rounded-lg bg-[rgb(var(--text-primary-rgb)/0.03)] border border-[rgb(var(--border-subtle-rgb)/0.1)] hover:border-[rgb(var(--border-subtle-rgb)/0.3)] overflow-hidden transition-colors"
                 style={{
                   boxShadow: `inset 0 0 0 1px transparent`,
                 }}
@@ -78,7 +78,7 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
                     {mod.icon}
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <div className="text-[10px] text-white/30 tracking-widest">
+                    <div className="text-[10px] text-[rgb(var(--text-primary-rgb)/0.3)] tracking-widest">
                       {String(i + 1).padStart(2, '0')}
                     </div>
                     <div
@@ -92,11 +92,11 @@ export default function ModuleSelect({ onSelect, onBack }: ModuleSelectProps) {
                 <div className="text-xs tracking-widest mb-1" style={{ color: mod.color }}>
                   {mod.subtitle.toUpperCase()}
                 </div>
-                <div className="text-xl text-white font-light mb-3">{mod.name}</div>
-                <div className="text-xs text-white/40 leading-relaxed mb-4">
+                <div className="text-xl text-text-primary font-light mb-3">{mod.name}</div>
+                <div className="text-xs text-[rgb(var(--text-primary-rgb)/0.4)] leading-relaxed mb-4">
                   {descForModule(mod.id)}
                 </div>
-                <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+                <div className="h-1 rounded-full bg-[rgb(var(--text-primary-rgb)/0.05)] overflow-hidden">
                   <motion.div
                     className="h-full rounded-full"
                     initial={{ width: 0 }}
