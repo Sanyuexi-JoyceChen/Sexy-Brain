@@ -1,10 +1,17 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
+import GameRoot from './game/GameRoot.tsx';
+import ErrorBoundary from './game/ErrorBoundary.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary silent>
+      <App />
+    </ErrorBoundary>
+    <ErrorBoundary>
+      <GameRoot />
+    </ErrorBoundary>
   </StrictMode>,
 );
